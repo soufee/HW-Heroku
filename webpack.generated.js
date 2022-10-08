@@ -30,14 +30,14 @@ const themePartRegex = /(\\|\/)themes\1[\s\S]*?\1/;
 // the folder of app resources:
 //  - flow templates for classic Flow
 //  - client code with index.html and index.[ts/js] for CCDM
-const frontendFolder = path.resolve(__dirname, './frontend');
-const frontendGeneratedFolder = path.resolve(__dirname, './frontend/generated');
+const frontendFolder = path.resolve(__dirname, 'frontend');
+const frontendGeneratedFolder = path.resolve(__dirname, 'frontend/generated');
 const fileNameOfTheFlowGeneratedMainEntryPoint = path.resolve(__dirname, 'target/frontend/generated-flow-imports.js');
 const mavenOutputFolderForFlowBundledFiles = path.resolve(__dirname, 'target/classes/META-INF/VAADIN/webapp');
 const mavenOutputFolderForResourceFiles = path.resolve(__dirname, 'target/classes/META-INF/VAADIN');
 const useClientSideIndexFileForBootstrapping = true;
 const clientSideIndexHTML = './index.html';
-const clientSideIndexEntryPoint = path.resolve(__dirname, './frontend', 'generated/', 'vaadin.ts');;
+const clientSideIndexEntryPoint = path.resolve(__dirname, 'frontend', 'generated/', 'vaadin.ts');;
 const pwaEnabled = false;
 const offlinePath = 'offline.html';
 const clientServiceWorkerEntryPoint = path.resolve(__dirname, 'target/sw');
