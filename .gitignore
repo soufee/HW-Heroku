@@ -35,5 +35,3 @@ build/
 mvnw
 mvnw.cmd
 out/**
-node_modules/**
-frontend/**
