@@ -1,11 +1,12 @@
-package ci.ashamaz.hwheroku.service;
-
+package ci.ashamaz.hwheroku.service.impl;
 
 import ci.ashamaz.hwheroku.entity.Account;
 import ci.ashamaz.hwheroku.enums.RoleEnum;
 import ci.ashamaz.hwheroku.repo.AccountRepo;
+import ci.ashamaz.hwheroku.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +14,9 @@ import java.util.List;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 @Transactional
-public class AccountServiceImpl implements AccountService{
+public class AccountServiceImpl implements AccountService {
     private final AccountRepo accountRepository;
 
     @Override

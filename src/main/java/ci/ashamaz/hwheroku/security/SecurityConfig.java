@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .requestMatchers(SecurityUtils::isFrameworkInternalRequest)
                 .permitAll()
                 .antMatchers(
-                        "/", "/login")
+                         "/login")
                 .permitAll()
                 .and()
                 .authorizeRequests()
