@@ -75,6 +75,11 @@
             <artifactId>unirest-java</artifactId>
             <version>1.4.9</version>
         </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-server</artifactId>
+            <version>8.7.0</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>

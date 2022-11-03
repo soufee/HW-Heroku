@@ -47,7 +47,7 @@ public class CardStat {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(card.getDisplayName() + " выпадал " + timesShown + " раз.\n");
-        sb.append("Из них на позиции команды " + onTeamPosition + " раз и выиграл " + " " + wonOnTeamPosition + "раз. " + "Продул " + lostOnTeamPosition
+        sb.append("Из них на позиции команды " + onTeamPosition + " раз и выиграл " + " " + wonOnTeamPosition + " раз. " + "Продул " + lostOnTeamPosition
                 + " раз и показал ничью " + drawOnTeamPosition + " раз. \n");
         sb.append("На позиции ничьи выпадала " + onDrawPosition + " раз, из которых в ничью закончилось " + drawOnDrawPosition + " матчей"
                 + " и не в ничью заканчивалось " + notDrawOnDrawPosition + " матчей. Общее количество ничей с этой картой в раскладе "

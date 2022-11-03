@@ -18,8 +18,8 @@ public class HeaderComponent extends HorizontalLayout {
         logo.addClassNames("text-l", "m-m");
         Button logout = new Button("Log out", e -> securityService.logout());
         Button login = new Button("Log In", event -> UI.getCurrent().navigate("login"));
-
-        login.setVisible(false);
+        setSpacing(false);
+        setPadding(false);
         login.setVisible(false);
 
         Account principal = securityService.getAuthenticatedAccount();
@@ -41,7 +41,7 @@ public class HeaderComponent extends HorizontalLayout {
         expand(logo);
         setWidth("100%");
         addClassNames("py-0", "px-m");
-        getStyle().set("border-bottom", "1px solid");
+        getStyle().set("border-bottom", "0px solid");
         getStyle().set("border-color", "#f44336!important");
         getStyle().set("padding", "0.01em 16px");
     }

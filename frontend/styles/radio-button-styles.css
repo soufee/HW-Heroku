@@ -1,0 +1,21 @@
+vaadin-radio-group.buttons vaadin-radio-button {
+    background-color: #39397a;
+    color: #fff;
+    border:none;
+    border-radius:10px;
+    box-shadow: 0px 0px 2px 2px rgb(0,0,0);
+    margin: 3px;
+    --radio-button-wrapper-display: none;
+}
+
+vaadin-radio-group.buttons vaadin-radio-button:hover {
+    outline-color: transparent;
+    outline-style:solid;
+    box-shadow: 0 0 0 4px #5a01a7;
+}
+
+vaadin-radio-group.buttons vaadin-radio-button[checked] {
+    background: orange;
+}
+
+

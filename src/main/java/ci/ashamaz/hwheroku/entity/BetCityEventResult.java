@@ -17,7 +17,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class BetCityEventResult {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer hostTeamScore;
     private Integer guestTeamScore;

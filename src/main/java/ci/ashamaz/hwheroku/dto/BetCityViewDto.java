@@ -5,22 +5,21 @@ import ci.ashamaz.hwheroku.enums.TarotEnum;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.EnumMap;
 
 @Getter
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class BetCityEventBaseWideDto {
-    private TarotEnum position1;
-    private TarotEnum drawPosition;
-    private TarotEnum position2;
+public class BetCityViewDto {
     private Long id;
     private String tournament;
     private Long tournamentId;
     private LocalDateTime startsAt;
     private String hostTeam;
     private String guestTeam;
-    private EnumMap<OddPositions, Double> odds;
+    private OddPositions odd;
+    private TarotEnum firstPosition;
+    private TarotEnum drawPosition;
+    private TarotEnum secondPosition;
 }

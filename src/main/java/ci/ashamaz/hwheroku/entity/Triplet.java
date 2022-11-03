@@ -17,7 +17,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Triplet {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "event_id", referencedColumnName = "id")
