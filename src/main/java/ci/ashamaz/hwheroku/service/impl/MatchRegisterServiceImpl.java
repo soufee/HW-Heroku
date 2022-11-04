@@ -1,6 +1,7 @@
 package ci.ashamaz.hwheroku.service.impl;
 
 import ci.ashamaz.hwheroku.dto.BetCityEventBaseDto;
+import ci.ashamaz.hwheroku.dto.ParseAndSaveDto;
 import ci.ashamaz.hwheroku.entity.BetCityEvent;
 import ci.ashamaz.hwheroku.entity.Prognosis;
 import ci.ashamaz.hwheroku.entity.ResultDownloaderRecord;
@@ -40,15 +41,17 @@ public class MatchRegisterServiceImpl implements MatchRegisterService {
     }
 
     @Override
-    public BetCityEvent makeTripletAndSave(BetCityEventBaseDto eventDto, TarotEnum position1, TarotEnum drawPosition, TarotEnum position2) {
+    public BetCityEvent makeTripletAndSave(BetCityEventBaseDto eventDto, TarotEnum position1, TarotEnum drawPosition, TarotEnum position2, String comment) {
         BetCityEvent byId = betCityEventService.getById(eventDto.getId());
-        if (byId!=null) {
+        if (byId != null) {
             throw new IllegalArgumentException("This event is registered");
         }
         BetCityEvent event = BetCityEvent.builder().id(eventDto.getId()).tournamentId(eventDto.getTournamentId()).tournament(eventDto.getTournament())
-                .hostTeam(eventDto.getHostTeam()).guestTeam(eventDto.getGuestTeam()).startsAt(eventDto.getStartsAt()).build();
-        Triplet triplet =
-                Triplet.builder().event(event).draw(drawPosition).firstTeam(position1).secondTeam(position2).build();
+                .hostTeam(eventDto.getHostTeam()).guestTeam(eventDto.getGuestTeam()).startsAt(eventDto.getStartsAt())
+                .build();
+        Triplet triplet = Triplet.builder().event(event).draw(drawPosition).firstTeam(position1).secondTeam(position2)
+                .comment(comment)
+                .build();
         betCityEventService.addTriplet(event, triplet);
 
         LocalDateTime toStartCheck = event.getStartsAt().plus(110, ChronoUnit.MINUTES);
@@ -59,8 +62,9 @@ public class MatchRegisterServiceImpl implements MatchRegisterService {
     }
 
     @Override
-    public BetCityEvent makeTripletAndSave(BetCityEventBaseDto eventDto, TarotEnum position1, TarotEnum drawPosition, TarotEnum position2, OddPositions odd) {
-        makeTripletAndSave(eventDto, position1, drawPosition, position2);
+    public BetCityEvent makeTripletAndSave(BetCityEventBaseDto eventDto, TarotEnum position1, TarotEnum drawPosition, TarotEnum position2, OddPositions odd,
+            String comment) {
+        makeTripletAndSave(eventDto, position1, drawPosition, position2, comment);
         return addPrognosis(eventDto, odd);
     }
 
@@ -71,11 +75,23 @@ public class MatchRegisterServiceImpl implements MatchRegisterService {
         if (triplet == null) {
             throw new IllegalStateException("There is no triplet in this event. Prognosis is unavailable");
         }
-        Prognosis prognosis = Prognosis.builder().choice(position)
-                .odd(eventDto.getOdds().get(position))
-                .time(LocalDateTime.now()).build();
+        Prognosis prognosis = Prognosis.builder().choice(position).odd(eventDto.getOdds().get(position)).time(LocalDateTime.now()).build();
         betCityEventService.addTriplet(event, triplet, prognosis);
         return betCityEventService.getById(event.getId());
+    }
+
+    @Override
+    public BetCityEvent addPrognosis(ParseAndSaveDto urlDto) {
+        BetCityEventBaseDto eventTemplate = getEventTemplate(urlDto.getUrl());
+        BetCityEvent event = null;
+        if (urlDto.getOdd() != null) {
+            event = makeTripletAndSave(eventTemplate, urlDto.getPosition1(), urlDto.getDrawPosition(), urlDto.getPosition2(), urlDto.getOdd(),
+                    urlDto.getComment());
+        } else {
+            event = makeTripletAndSave(eventTemplate, urlDto.getPosition1(), urlDto.getDrawPosition(), urlDto.getPosition2(), urlDto.getComment());
+        }
+        log.info(" saved "+event);
+        return event;
     }
 
 }

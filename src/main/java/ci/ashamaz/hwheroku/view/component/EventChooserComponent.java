@@ -14,50 +14,39 @@ import java.util.regex.Pattern;
 
 @Getter
 public class EventChooserComponent extends VerticalLayout {
-    private MatchRegisterService matchRegisterService;
     private HorizontalLayout searchLayout = new HorizontalLayout();
     private Button getOdds;
+    private Button clear;
     private TextField field;
 
-    public EventChooserComponent(MatchRegisterService matchRegisterService) {
-        this.matchRegisterService = matchRegisterService;
+    public EventChooserComponent() {
         add(searchLayout);
         field = new TextField("Betcity link");
         field.setWidth("450px");
         field.setPlaceholder("https://betcity.ru/en/line/soccer/?/?");
         getOdds = new Button("Get Odds");
         getOdds.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        searchLayout.add(field, getOdds);
+        clear = new Button("Clear");
+        clear.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
+        searchLayout.add(field, getOdds, clear);
         searchLayout.setAlignItems(Alignment.BASELINE);
         searchLayout.setVisible(true);
-
-//        getOdds.addClickListener((ComponentEventListener<ClickEvent<Button>>) buttonClickEvent -> {
-//            if (StringUtils.hasLength(field.getValue()) && isCorrectBetCitLink(field.getValue())) {
-//                BetCityEventBaseDto eventTemplate = null;
-//                try {
-//                    eventTemplate = matchRegisterService.getEventTemplate(field.getValue());
-//                    if (eventTemplate == null) {
-//                        throw new IllegalStateException("Ошибка при получении данных матча");
-//                    }
-//                } catch (Exception e) {
-//                    addError(field, e.getMessage());
-//                }
-//            } else {
-//                addError(field, "Provide correct Betcity link");
-//            }
-//        });
     }
 
     public void setSearchButtonEventListener(ComponentEventListener<ClickEvent<Button>> event) {
         getOdds.addClickListener(event);
     }
 
-    private void addError(TextField field, String message) {
+    public void setClearventListener(ComponentEventListener<ClickEvent<Button>> event) {
+        clear.addClickListener(event);
+    }
+
+    public void addError(TextField field, String message) {
         field.setInvalid(true);
         field.setErrorMessage(message);
     }
 
-    private boolean isCorrectBetCitLink(String value) {
+    public boolean isCorrectBetCitLink(String value) {
         final Pattern pattern = Pattern.compile("https://betcity\\.ru/.*/line/soccer/\\d*/\\d*$", Pattern.CASE_INSENSITIVE);
         return pattern.matcher(value).matches();
     }

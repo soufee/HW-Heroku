@@ -17,7 +17,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Triplet {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "event_id", referencedColumnName = "id")
@@ -34,4 +34,5 @@ public class Triplet {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "prognosis_id", referencedColumnName = "id")
     private Prognosis prognosis;
+    private String comment;
 }

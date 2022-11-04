@@ -47,20 +47,23 @@ public class CardStat {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(card.getDisplayName() + " выпадал " + timesShown + " раз.\n");
-        sb.append("Из них на позиции команды " + onTeamPosition + " раз и выиграл " + " " + wonOnTeamPosition + " раз. " + "Продул " + lostOnTeamPosition
-                + " раз и показал ничью " + drawOnTeamPosition + " раз. \n");
+        sb.append("На команде " + onTeamPosition + " раз и выиграл " + " " + wonOnTeamPosition + " раз. " + "Продул " + lostOnTeamPosition
+                + " раз, ничья " + drawOnTeamPosition + " раз. \n");
         sb.append("На позиции ничьи выпадала " + onDrawPosition + " раз, из которых в ничью закончилось " + drawOnDrawPosition + " матчей"
-                + " и не в ничью заканчивалось " + notDrawOnDrawPosition + " матчей. Общее количество ничей с этой картой в раскладе "
+                + " и не в ничью заканчивалось " + notDrawOnDrawPosition + " матчей. Общее количество ничей  "
                 + (drawOnTeamPosition + drawOnDrawPosition) + " матчей.\n");
-        sb.append("Среднее количество голов в матчах с этой картой в раскладе " + (goalsInMatch/timesShown) + ", при этом в среднем на позиции команды "
-                + "с этой картой пропущено " + (gotGoals/onTeamPosition) + " голов, " + " и забито " + (scoredGoals/onTeamPosition) + " голов\n");
-        sb.append("Данная карта в раскладах побеждала старшие арканы " + beatsArcane + " раз\n");
-        sb.append("Данная карта в раскладах побеждала масть мечей " + beatsSwords + " раз\n");
-        sb.append("Данная карта в раскладах побеждала масть пентаклей " + beatsDiamonds + " раз\n");
-        sb.append("Данная карта в раскладах побеждала масть жезлов " + beatsWands + " раз\n");
-        sb.append("Данная карта в раскладах побеждала масть чаш " + beatsCups + " раз\n");
-        sb.append("Данная карта в раскладах побеждала фигурные карты  " + beatsFigures + " раз\n");
-        sb.append("Данная карта в раскладах побеждала числовые карты " + beatsNumbers + " раз\n");
+        sb.append("Среднее количество голов в матчах "
+                + ((float)goalsInMatch/(float) timesShown) + ", при этом в среднем на позиции команды "
+                + "с этой картой пропущено "
+                + ((float)gotGoals/(float)onTeamPosition) + " голов, " + " и забито "
+                + ((float)scoredGoals/(float)onTeamPosition) + " голов\n");
+        sb.append("побеждала старшие арканы " + beatsArcane + " раз\n");
+        sb.append("побеждала масть мечей " + beatsSwords + " раз\n");
+        sb.append("побеждала масть пентаклей " + beatsDiamonds + " раз\n");
+        sb.append("побеждала масть жезлов " + beatsWands + " раз\n");
+        sb.append("побеждала масть чаш " + beatsCups + " раз\n");
+        sb.append("побеждала фигурные карты  " + beatsFigures + " раз\n");
+        sb.append("побеждала числовые карты " + beatsNumbers + " раз\n");
         return sb.toString();
     }
 }
