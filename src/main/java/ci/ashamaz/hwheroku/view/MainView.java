@@ -2,6 +2,7 @@ package ci.ashamaz.hwheroku.view;
 
 import ci.ashamaz.hwheroku.dto.BetCityEventBaseDto;
 import ci.ashamaz.hwheroku.dto.ParseAndSaveDto;
+import ci.ashamaz.hwheroku.entity.BetCityEvent;
 import ci.ashamaz.hwheroku.enums.OddPositions;
 import ci.ashamaz.hwheroku.security.SecurityService;
 import ci.ashamaz.hwheroku.service.CardStatService;
@@ -9,9 +10,11 @@ import ci.ashamaz.hwheroku.service.MatchRegisterService;
 import ci.ashamaz.hwheroku.view.component.EventChooserComponent;
 import ci.ashamaz.hwheroku.view.component.SportEventTemplateComponent;
 import ci.ashamaz.hwheroku.view.component.TripletComponent;
+import ci.ashamaz.hwheroku.view.component.util.NotificationError;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -78,7 +81,6 @@ public class MainView extends ComplexPageView {
         betChoise.setDefaultVerticalComponentAlignment(Alignment.BASELINE);
         choise = new ComboBox<>("Ставка");
         choise.setItems(OddPositions.values());
-        choise.setItemLabelGenerator(OddPositions::getDisplay);
         choise.setEnabled(eventTemplateComponent.getDto() != null && triplet.areCardsChosen());
         triplet.setOnComboChange(() -> {
             save.setEnabled(eventTemplateComponent.getDto() != null && triplet.areCardsChosen());
@@ -104,8 +106,13 @@ public class MainView extends ComplexPageView {
             saveDto = ParseAndSaveDto.builder().url(eventChooserComponent.getField().getValue()).position1(triplet.getFirstTeam().getValue())
                     .drawPosition(triplet.getDraw().getValue()).position2(triplet.getSecondTeam().getValue()).odd(choise.getValue())
                     .comment(commentField.getValue()).build();
-            log.info(saveDto.toString());
-            matchRegisterService.addPrognosis(saveDto);
+            BetCityEvent saved = matchRegisterService.addPrognosis(saveDto);
+            if (saved != null) {
+                String note = "Saved event " + saved.getHostTeam() + " - " + saved.getGuestTeam();
+                Notification.show(note);
+            } else {
+                new NotificationError().show();
+            }
             getCleanButton().run();
         });
 
@@ -119,8 +126,10 @@ public class MainView extends ComplexPageView {
                         throw new IllegalStateException("Ошибка при получении данных матча");
                     } else {
                         eventTemplateComponent.setDto(eventTemplate);
+                        choise.setItemLabelGenerator(e -> e.getDisplay() + " | " + eventTemplateComponent.getDto().getOdds().get(e));
                         choise.setEnabled(eventTemplateComponent.getDto() != null && triplet.areCardsChosen());
                         save.setEnabled(eventTemplateComponent.getDto() != null && triplet.areCardsChosen());
+                        eventChooserComponent.getGetOdds().setEnabled(false);
                     }
                 } catch (Exception e) {
                     eventChooserComponent.addError(eventChooserComponent.getField(), e.getMessage());
@@ -131,7 +140,7 @@ public class MainView extends ComplexPageView {
         });
 
         eventChooserComponent.setClearventListener(event -> {
-            getCleanButton();
+            getCleanButton().run();
         });
         leftLayout.add(commentField);
         leftLayout.add(save);
@@ -145,7 +154,9 @@ public class MainView extends ComplexPageView {
             saveDto = null;
             save.setEnabled(eventTemplateComponent.getDto() != null && triplet.areCardsChosen());
             choise.setEnabled(eventTemplateComponent.getDto() != null && triplet.areCardsChosen());
+            choise.setValue(null);
             commentField.setValue("");
+            eventChooserComponent.getGetOdds().setEnabled(true);
         };
     }
 }

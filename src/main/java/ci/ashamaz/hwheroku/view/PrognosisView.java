@@ -7,11 +7,11 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
 
 @UIScope
-@Route("feed")
-@PageTitle("Tarot statistic! | Feed")
-public class FeedView extends ComplexPageView {
-    public FeedView(SecurityService securityService) {
+@Route("prognosis")
+@PageTitle("My prognosis! | prognosis")
+public class PrognosisView extends ComplexPageView {
+    public PrognosisView(SecurityService securityService) {
         super(securityService);
-        add(new H1("Лента предстоящих событий"));
+        add(new H1("Сделанные прогнозы"));
     }
 }

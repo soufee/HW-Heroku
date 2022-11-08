@@ -20,15 +20,7 @@ public class AdminView extends ComplexPageView {
     public AdminView(SecurityService securityService) {
         super(securityService);
         add(new H1("Тут будет админка "));
-        RadioButtonGroup<String> radioGroup = new RadioButtonGroup<>();
-        radioGroup.setLabel("Status");
-        radioGroup.setItems("In progress", "Done", "Cancelled");
-        add(radioGroup);
-        radioGroup.addClassName("buttons");
-        radioGroup.addValueChangeListener(
-                (HasValue.ValueChangeListener<AbstractField.ComponentValueChangeEvent<RadioButtonGroup<String>, String>>) radioButtonGroupStringComponentValueChangeEvent -> {
-                    System.out.println(radioButtonGroupStringComponentValueChangeEvent.getValue());
-                });
+
 
     }
 }

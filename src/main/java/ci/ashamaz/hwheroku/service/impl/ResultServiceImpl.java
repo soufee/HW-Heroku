@@ -1,8 +1,10 @@
 package ci.ashamaz.hwheroku.service.impl;
 
 import ci.ashamaz.hwheroku.downloader.BetCityResultDownloader;
+import ci.ashamaz.hwheroku.dto.ResultDisplayDto;
 import ci.ashamaz.hwheroku.entity.BetCityEvent;
 import ci.ashamaz.hwheroku.entity.ResultDownloaderRecord;
+import ci.ashamaz.hwheroku.repo.BetCityEventRepo;
 import ci.ashamaz.hwheroku.service.BetCityEventService;
 import ci.ashamaz.hwheroku.service.ResultDownloaderRecordService;
 import ci.ashamaz.hwheroku.service.ResultService;
@@ -23,6 +25,7 @@ public class ResultServiceImpl implements ResultService {
     private final ResultDownloaderRecordService resultDownloaderRecordService;
     private final BetCityResultDownloader resultDownloader;
     private final BetCityEventService betCityEventService;
+    private final BetCityEventRepo betCityEventRepo;
 
     @Override
     public void checkResults() {
@@ -44,5 +47,25 @@ public class ResultServiceImpl implements ResultService {
                 }
             }
         }
+    }
+
+    @Override
+    public List<ResultDisplayDto> getTodaysEvents() {
+        return betCityEventRepo.getTodaysEvents();
+    }
+
+    @Override
+    public List<ResultDisplayDto> getLastWeekEvents() {
+        return null;
+    }
+
+    @Override
+    public List<ResultDisplayDto> getLastMonthEvents() {
+        return null;
+    }
+
+    @Override
+    public List<ResultDisplayDto> getAllEvents() {
+        return null;
     }
 }
