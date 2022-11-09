@@ -1,6 +1,7 @@
 package ci.ashamaz.hwheroku.view.component;
 
 import ci.ashamaz.hwheroku.dto.BetCityEventBaseDto;
+import ci.ashamaz.hwheroku.enums.OddPositions;
 import com.vaadin.flow.component.HtmlComponent;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
@@ -41,6 +42,14 @@ public class SportEventTemplateComponent extends VerticalLayout {
             time = new Label(dto.getStartsAt().toString());
             time.addClassName("time");
             div.add(tournament, new HtmlComponent("br"), teams, new HtmlComponent("br"), time);
+            StringBuilder sb = new StringBuilder();
+            sb.append("П1: ").append(dto.getOdds().get(OddPositions.WIN1)).append(" | ")
+                    .append("X: ").append(dto.getOdds().get(OddPositions.DRAW)).append(" | ")
+                    .append("П2: ").append(dto.getOdds().get(OddPositions.WIN2));
+            div.add(new HtmlComponent("br"));
+            Label odds = new Label(sb.toString());
+            odds.getStyle().set("font-weight","bold" );
+            div.add(odds);
             div.setVisible(true);
             add(div);
         }

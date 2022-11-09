@@ -19,7 +19,7 @@ public class ResultDisplayDto {
         this.startsAt = event.getStartsAt();
         this.cards = triplet.getFirstTeam().getShortTitle() + " - " + triplet.getDraw().getShortTitle() + " - " + triplet.getSecondTeam().getShortTitle();
         if (prognosis != null) {
-            this.choise = prognosis.getChoice();
+            this.choice = prognosis.getChoice();
             this.resultState = prognosis.getResult();
         }
         this.comment = triplet.getComment();
@@ -29,7 +29,7 @@ public class ResultDisplayDto {
     private String score;
     private LocalDateTime startsAt;
     private String cards;
-    private OddPositions choise;
+    private OddPositions choice;
     private ResultState resultState;
     private String comment;
 }
