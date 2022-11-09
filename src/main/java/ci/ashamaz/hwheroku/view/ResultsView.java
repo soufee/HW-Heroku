@@ -24,13 +24,45 @@ public class ResultsView extends ComplexPageView {
         Button buttonWeek = new Button("За неделю");
         Button buttonMonth = new Button("За месяц");
         Button buttonAll = new Button("За все время");
-        buttonToday.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
+        buttonToday.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         buttonWeek.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         buttonMonth.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         buttonAll.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        buttonToday.setEnabled(false);
+        buttonToday.setDisableOnClick(true);
+        buttonWeek.setDisableOnClick(true);
+        buttonMonth.setDisableOnClick(true);
+        buttonAll.setDisableOnClick(true);
         buttonBar.setDefaultVerticalComponentAlignment(Alignment.BASELINE);
         buttonBar.add(buttonToday, buttonWeek, buttonMonth, buttonAll);
         ResultGridContent resultGridContent = new ResultGridContent(resultService);
+        buttonToday.addClickListener(event->{
+            buttonWeek.setEnabled(true);
+            buttonMonth.setEnabled(true);
+            buttonAll.setEnabled(true);
+            resultGridContent.addItems(resultService.getTodaysEvents());
+        });
+        buttonWeek.addClickListener(event->{
+            buttonToday.setEnabled(true);
+            buttonMonth.setEnabled(true);
+            buttonAll.setEnabled(true);
+            resultGridContent.addItems(resultService.getLastWeekEvents());
+
+        });
+        buttonMonth.addClickListener(event->{
+            buttonWeek.setEnabled(true);
+            buttonToday.setEnabled(true);
+            buttonAll.setEnabled(true);
+            resultGridContent.addItems(resultService.getLastMonthEvents());
+
+        });
+        buttonAll.addClickListener(event->{
+            buttonWeek.setEnabled(true);
+            buttonMonth.setEnabled(true);
+            buttonToday.setEnabled(true);
+            resultGridContent.addItems(resultService.getAllEvents());
+
+        });
         add(buttonBar, resultGridContent);
 
 

@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -56,16 +58,16 @@ public class ResultServiceImpl implements ResultService {
 
     @Override
     public List<ResultDisplayDto> getLastWeekEvents() {
-        return null;
+        return betCityEventRepo.getEventsByPeriod(LocalDateTime.now().minus(7, ChronoUnit.DAYS), LocalDateTime.now().withHour(23).withMinute(59));
     }
 
     @Override
     public List<ResultDisplayDto> getLastMonthEvents() {
-        return null;
+        return betCityEventRepo.getEventsByPeriod(LocalDateTime.now().minus(30, ChronoUnit.DAYS), LocalDateTime.now().withHour(23).withMinute(59));
     }
 
     @Override
     public List<ResultDisplayDto> getAllEvents() {
-        return null;
+        return betCityEventRepo.getAllEvents();
     }
 }
