@@ -15,7 +15,6 @@ import lombok.Setter;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Getter
 @Setter
@@ -69,7 +68,7 @@ public class ResultGridContent extends VerticalLayout {
                         case LOOSE:
                             return "#e8bcb7";
                         case RETURN:
-                            return "fcbd2f7";
+                            return "#53aefc";
                         default:
                             return "#ffffff";
                         }

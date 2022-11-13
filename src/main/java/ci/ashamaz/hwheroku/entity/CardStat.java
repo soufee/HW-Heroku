@@ -52,9 +52,9 @@ public class CardStat {
         sb.append("На позиции ничьи выпадала " + onDrawPosition + " раз, из которых в ничью закончилось " + drawOnDrawPosition + " матчей"
                 + " и не в ничью заканчивалось " + notDrawOnDrawPosition + " матчей. Общее количество ничей  "
                 + (drawOnTeamPosition + drawOnDrawPosition) + " матчей.\n");
-        sb.append("Среднее количество голов в матчах "
-                + ((float)goalsInMatch/(float) timesShown) + ", при этом в среднем на позиции команды "
-                + "с этой картой пропущено "
+        sb.append("В среднем голов в матчах "
+                + ((float)goalsInMatch/(float) timesShown) + "\n, в среднем на позиции команды "
+                + "с пропущено "
                 + ((float)gotGoals/(float)onTeamPosition) + " голов, " + " и забито "
                 + ((float)scoredGoals/(float)onTeamPosition) + " голов\n");
         sb.append("побеждала старшие арканы " + beatsArcane + " раз\n");
